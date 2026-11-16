@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: ecommerce-purchase-intention
+    runtime: python
+    plan: free
+    region: oregon
+    buildCommand: |
+      python -m pip install --upgrade pip
+      pip install uv
+      uv sync --python 3.12 --frozen
+    startCommand: uv run python -m uvicorn predict:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.13
